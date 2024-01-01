@@ -63,43 +63,84 @@
 // SomeClass obj = new SomeClass(); // Create an instance of the class.
 // obj.SomeStatefulMethod(); // Access the stateful method on the object.
 
-Random dice = new Random();
+SubscriptionExpiration();
 
-int roll1 = dice.Next(1, 7);
-int roll2 = dice.Next(1, 7);
-int roll3 = dice.Next(1, 7);
-
-int total = roll1 + roll2 + roll3;
-
-Console.WriteLine($"Dice roll: {roll1} + {roll2} + {roll3} = {total}");
-
-if ((roll1 == roll2) || (roll2 == roll3) || (roll1 == roll3))
+void SubscriptionExpiration()
 {
-    if ((roll1 == roll2) && (roll2 == roll3))
+    Random random = new Random();
+    int daysUntilExpiration = random.Next(12);
+    int discountPercentage = 0;
+
+    if (daysUntilExpiration > 10)
+        return;
+    else if (daysUntilExpiration == 0)
     {
-        Console.WriteLine("Whoa, triples?! Impossible! +6 bonus to total!");
-        total += 6;
+        Console.WriteLine("Your subscription has expired.");
+    }
+    else if (daysUntilExpiration == 1)
+    {
+        discountPercentage = 20;
+        Console.WriteLine($"Your subscription expires in {daysUntilExpiration} day!");
+    }
+    else if (daysUntilExpiration <= 5)
+    {
+        discountPercentage = 10;
+        Console.WriteLine($"Your subscription expires in {daysUntilExpiration} days.");
     }
     else
     {
-        Console.WriteLine("You rolled doubles! +2 bonus to total!");
-        total += 2;
+        Console.WriteLine("Your subscription will expire soon. Renew now!");
+    }
+
+    if (discountPercentage > 0)
+    {
+        Console.WriteLine($"Renew now and save {discountPercentage}% on your next subscription!");
     }
 }
 
-if (total >= 16)
+void PlayDiceGame()
 {
-    Console.WriteLine("Congratulations! You win a new Subaru Mazda Toyta 3505 Hyperspeed Demon!");
+    Random dice = new Random();
+
+    int roll1 = dice.Next(1, 7);
+    int roll2 = dice.Next(1, 7);
+    int roll3 = dice.Next(1, 7);
+
+    int total = roll1 + roll2 + roll3;
+
+    Console.WriteLine($"Dice roll: {roll1} + {roll2} + {roll3} = {total}");
+
+    if ((roll1 == roll2) || (roll2 == roll3) || (roll1 == roll3))
+    {
+        if ((roll1 == roll2) && (roll2 == roll3))
+        {
+            Console.WriteLine("Whoa, triples?! Impossible! +6 bonus to total!");
+            total += 6;
+            Console.WriteLine($"New total: {total}");
+        }
+        else
+        {
+            Console.WriteLine("You rolled doubles! +2 bonus to total!");
+            total += 2;
+            Console.WriteLine($"New total: {total}");
+        }
+    }
+
+    if (total >= 16)
+    {
+        Console.WriteLine("Congratulations! You win a new Subaru Mazda Toyta 3505 Hyperspeed Demon!");
+    }
+    else if (total >= 10)
+    {
+        Console.WriteLine("Oh yeah, baby! You won a new Azer Legionnaire 4500 Deluxe Laptop!");
+    }
+    else if (total == 7)
+    {
+        Console.WriteLine("You scored EXACTLY 7—just the right amount to win a trip to Columbus, Ohio! You go, you!");
+    }
+    else
+    {
+        Console.WriteLine("Well, we can't all be winners, can we? Here, have a kitten as a consolation prize. Sure, she's got fleas, three legs, and is blind in both eyes, but she's still cute!");
+    }
 }
-else if (total >= 10)
-{
-    Console.WriteLine("Oh yeah, baby! You won a new Azer Legionnaire 4500 Deluxe Laptop!");
-}
-else if (total == 7)
-{
-    Console.WriteLine("You scored EXACTLY 7—just the right amount to win a trip to Columbus, Ohio! You go, you!");
-}
-else
-{
-    Console.WriteLine("Well, we can't all be winners, can we? Here, have a kitten as a consolation prize. Sure, she's got fleas, three legs, and is blind in both eyes, but she's still cute!");
-}
+
